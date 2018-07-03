@@ -14,7 +14,8 @@ import { AppRegistry, StyleSheet, View, Text } from 'react-native';
 //import VerticalScrollView from './components/VerticalScrollView'
 //import HorizontalScrollView from './components/HorizontalScrollView'
 //import ViewPagerExample from './components/ViewPagerExample'
-import BasicFlatList from './components/BasicFlatList'
+//import BasicFlatList from './components/BasicFlatList'
+import HorizontalFlatList from './components/HorizontalFlatList'
 
 export default class App extends Component {
     render() {
@@ -47,4 +48,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
     }
 });
-AppRegistry.registerComponent('learningProject', () => BasicFlatList);
+AppRegistry.registerComponent('learningProject', () => HorizontalFlatList);

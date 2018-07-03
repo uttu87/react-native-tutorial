@@ -12,7 +12,8 @@
     "react-native": "0.53.3",
     "react-native-button": "^2.3.0",
     "react-native-modalbox": "^1.5.0",
-    "react-native-swipeout": "^2.3.3"
+    "react-native-swipeout": "^2.3.3",
+    "react-native-vector-icons": "^4.6.0"
   },
   "devDependencies": {
     "babel-jest": "23.2.0",
