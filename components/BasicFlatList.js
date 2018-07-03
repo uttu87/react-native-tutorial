@@ -10,13 +10,22 @@ import {View, Text,
 import flatListData from '../data/flatListData'
 import Swipeout from 'react-native-swipeout'
 import AddModal from './AddModal';
+import EditModal from './EditModal';
 
 class FlatListItem extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            activeRowKey: null
+            activeRowKey: null,
+            numberOfRefresh: 0
         }       
+    }
+    refreshFlatListItem = () => {
+        this.setState((previousState) => {
+            return{
+                numberOfRefresh: previousState.numberOfRefresh + 1
+            }            
+        })
     }
     render() {
         const swipeoutSetting = {
@@ -29,24 +38,33 @@ class FlatListItem extends Component {
             onOpen: (secId, rowId, direction)=>{
                 this.setState({activeRowKey: this.props.item.key})
             },
-            right: [{
-                onPress: () => {
-                    const deletingRow = this.state.activeRowKey 
-                    Alert.alert(
-                        'Alert',
-                        'Are you sure you want to delete?',
-                        [
-                            {text: 'No', onPress: ()=>console.log('Cancel Press'), type: 'cancel'},
-                            {text: 'Yes', onPress: ()=>{
-                                flatListData.splice(this.props.index, 1)
-                                this.props.parentFlatList.refreshFlatList(deletingRow)
-                            }}
-                        ],
-                        {cancelable: true}
-                    )
+            right: [
+                {
+                    onPress: () => {
+                        //alert("Update item")
+                        this.props.parentFlatList.refs.editModal.showEditModal(flatListData[this.props.index], this);
+                    },
+                    text: 'Edit', type: 'primary'
                 },
-                text: 'Delete', type: 'delete'
-            }],
+                {
+                    onPress: () => {
+                        const deletingRow = this.state.activeRowKey 
+                        Alert.alert(
+                            'Alert',
+                            'Are you sure you want to delete?',
+                            [
+                                {text: 'No', onPress: ()=>console.log('Cancel Press'), type: 'cancel'},
+                                {text: 'Yes', onPress: ()=>{
+                                    flatListData.splice(this.props.index, 1)
+                                    this.props.parentFlatList.refreshFlatList(deletingRow)
+                                }}
+                            ],
+                            {cancelable: true}
+                        )
+                    },
+                    text: 'Delete', type: 'delete'
+                }
+            ],
             rowId: this.props.index,
             sectionId: 1
         }
@@ -114,6 +132,7 @@ export default class BasicFlatList extends Component {
                 deletedRowKey: deletedKey
             }
         })
+        this.refs.flatList.scrollToEnd()
     }
 
     _onPressAdd () {
@@ -142,6 +161,7 @@ export default class BasicFlatList extends Component {
                     </TouchableHighlight>
                 </View>
                 <FlatList
+                    ref={'flatList'}
                     data={flatListData}
                     renderItem={({item, index})=>{
                         //console.log(`Item = ${JSON.stringify(item)}, Index = ${index}`)
@@ -154,6 +174,7 @@ export default class BasicFlatList extends Component {
                 >
                 </FlatList>    
                 <AddModal ref={'addModal'} parentFlatList={this}></AddModal>
+                <EditModal ref={'editModal'} parentFlatList={this}></EditModal>
             </View>
         )
     }

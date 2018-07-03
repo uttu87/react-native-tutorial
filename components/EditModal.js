@@ -14,15 +14,21 @@ import Button from 'react-native-button'
 import flatListData from '../data/flatListData'
 
 var screen = Dimensions.get('window')
-export default class AddModal extends Component {
+export default class EditModal extends Component {
     constructor(props){
         super(props)     
         this.state = {
-            newFoodName: '',
-            newFoodDescription: ''
+            foodName: '',
+            foodDescription: ''
         }   
     }
-    showAddModal = () => {
+    showEditModal = (editingFood, flatListItem) => {
+        this.setState({
+            key: editingFood.key,
+            foodName: editingFood.name,
+            foodDescription: editingFood.foodDescription,
+            flatListItem: flatListItem
+        })
         this.refs.myModal.open()
     }
 
@@ -63,9 +69,9 @@ export default class AddModal extends Component {
                         marginBottom: 10,
                         borderBottomWidth: 1
                     }}
-                    placeholder = "Enter new food's name"
-                    value={this.state.newFoodName}
-                    onChangeText={(text)=>this.setState({newFoodName: text})}
+                    placeholder = "Enter food's name"
+                    value={this.state.foodName}
+                    onChangeText={(text)=>this.setState({foodName: text})}
                 ></TextInput>              
                 <TextInput
                     style = {{
@@ -77,9 +83,9 @@ export default class AddModal extends Component {
                         marginBottom: 10,
                         borderBottomWidth: 1
                     }}
-                    placeholder = "Enter new food's description"
-                    value={this.state.newFoodDescription}
-                    onChangeText={(text)=>this.setState({newFoodDescription: text})}
+                    placeholder = "Enter food's description"
+                    value={this.state.foodDescription}
+                    onChangeText={(text)=>this.setState({foodDescription: text})}
                 ></TextInput>    
                 <Button
                     style={{
@@ -95,19 +101,18 @@ export default class AddModal extends Component {
                         backgroundColor: 'mediumseagreen'
                     }}
                     onPress={() => {
-                        if(this.state.newFoodName.length == 0 || this.state.newFoodDescription == 0){
+                        if(this.state.foodName.length == 0 || this.state.foodDescription == 0){
                             alert("You must enter food's name and description")
                             return;
                         }
-                        const newKey = this.generateKey(24)
-                        const newFood = {
-                            key: newKey,
-                            name: this.state.newFoodName,
-                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/74/Yeolmukimchi_3.jpg",
-                            foodDescription: this.state.newFoodDescription
+                        //Update food here
+                        var foundIndex = flatListData.findIndex(item => this.state.key == item.key)
+                        if(foundIndex < 0){
+                            return // not found
                         }
-                        flatListData.push(newFood)
-                        this.props.parentFlatList.refreshFlatList(newKey)
+                        flatListData[foundIndex].name = this.state.foodName
+                        flatListData[foundIndex].foodDescription = this.state.foodDescription    
+                        this.state.flatListItem.refreshFlatListItem()
                         this.refs.myModal.close()
                     }} 
                 >Save</Button>        
