@@ -16,11 +16,15 @@ import flatListData from '../data/flatListData'
 var screen = Dimensions.get('window')
 export default class AddModal extends Component {
     constructor(props){
-        super(props)
+        super(props)        
+    }
+    showAddModal = () => {
+        this.refs.myModal.open()
     }
     render() {
         return (
             <Modal 
+                ref={'myModal'}
                 style={{
                     justifyContent: 'center',
                     borderRadius: Platform.OS == 'ios' ? 30 : 0,
@@ -31,10 +35,10 @@ export default class AddModal extends Component {
                 position='center'
                 backdrop={true}
                 onClosed={() => {
-                    alert('Modal close')
+                    //alert('Modal close')
                 }}
             >   
-
+                <Text>New food's infomation</Text>                
             </Modal>
         )
     }

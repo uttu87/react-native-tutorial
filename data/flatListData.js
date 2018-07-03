@@ -9,7 +9,7 @@ const flatListData = [
         "key": "598a684f78fee204ee51cd2f",
         "name": "Fresh mushroom",        
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Lactarius_indigo_48568.jpg",    
-        "foodDescription": "Fresh mushroom with vegetables. This is a long line, this is a long line , this is a long line, this is a long line, this is a long line."
+        "foodDescription": "Fresh mushroom with vegetables."
     },
     {
         "key": "598a687678fee204ee51cd30",

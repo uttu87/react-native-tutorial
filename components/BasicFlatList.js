@@ -9,13 +9,14 @@ import {View, Text,
 } from 'react-native'
 import flatListData from '../data/flatListData'
 import Swipeout from 'react-native-swipeout'
+import AddModal from './AddModal';
 
 class FlatListItem extends Component {
     constructor(props) {
         super(props)
         this.state = {
             activeRowKey: null
-        }
+        }       
     }
     render() {
         const swipeoutSetting = {
@@ -104,6 +105,7 @@ export default class BasicFlatList extends Component {
         this.state = {
             deletedRowKey: null
         }
+        this._onPressAdd = this._onPressAdd.bind(this)  
     }
 
     refreshFlatList = (deletedKey) => {
@@ -115,11 +117,12 @@ export default class BasicFlatList extends Component {
     }
 
     _onPressAdd () {
-        alert("You add itemss")
+        //alert("You add itemss")
+        this.refs.addModal.showAddModal()
     }
     render() {
         return(
-            <View style={{flex: 1, marginTop: Platform.OS == 'ios'? 20 : 0}}>
+            <View style={{flex: 1, marginTop: Platform.OS == 'ios'? 34 : 0}}>
                 <View style={{
                     backgroundColor: 'tomato',
                     height: 64,
@@ -150,6 +153,7 @@ export default class BasicFlatList extends Component {
                     }}                    
                 >
                 </FlatList>    
+                <AddModal ref={'addModal'} parentFlatList={this}></AddModal>
             </View>
         )
     }
