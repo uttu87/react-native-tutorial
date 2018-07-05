@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1082758095941",
+    "firebase_url": "https://reactnativefirebasetutor-7fe7b.firebaseio.com",
+    "project_id": "reactnativefirebasetutor-7fe7b",
+    "storage_bucket": "reactnativefirebasetutor-7fe7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082758095941:android:a8ead8c40e2ac585",
+        "android_client_info": {
+          "package_name": "com.iseasoft.android.reactnativetutorial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1082758095941-cs1anoq32p8vjeekcp1palskenrar7v5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwXa9yQ3trQXX7iWxK_ksD8cZNP3EKNFw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
