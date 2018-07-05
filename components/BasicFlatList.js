@@ -5,12 +5,14 @@ import {View, Text,
         Image,
         Alert,
         Platform,
-        TouchableHighlight
+        TouchableHighlight,
+        RefreshControl
 } from 'react-native'
 import flatListData from '../data/flatListData'
 import Swipeout from 'react-native-swipeout'
 import AddModal from './AddModal';
 import EditModal from './EditModal';
+import {getFoodsFromServer} from '../networking/Server'
 
 class FlatListItem extends Component {
     constructor(props) {
@@ -121,9 +123,30 @@ export default class BasicFlatList extends Component {
     constructor(props){
         super(props)
         this.state = {
-            deletedRowKey: null
+            deletedRowKey: null,
+            refreshing: false,
+            foodsFromServer: []
         }
         this._onPressAdd = this._onPressAdd.bind(this)  
+    }
+
+    componentDidMount() {
+        this.refreshFoodsFromServer()
+    }
+
+    refreshFoodsFromServer = () => {
+        this.setState({refreshing: true})
+        getFoodsFromServer().then((foods) => {
+            this.setState({foodsFromServer: foods})
+            this.setState({refreshing: false})
+        }).catch((error) => {
+            this.setState({foodsFromServer: []})
+            this.setState({refreshing: false})
+        })
+    }
+
+    onRefresh = () => {
+        this.refreshFoodsFromServer()
     }
 
     refreshFlatList = (deletedKey) => {
@@ -162,7 +185,8 @@ export default class BasicFlatList extends Component {
                 </View>
                 <FlatList
                     ref={'flatList'}
-                    data={flatListData}
+                    //data={flatListData}
+                    data={this.state.foodsFromServer}
                     renderItem={({item, index})=>{
                         //console.log(`Item = ${JSON.stringify(item)}, Index = ${index}`)
                         return(
@@ -170,7 +194,11 @@ export default class BasicFlatList extends Component {
 
                             </FlatListItem>
                         )
-                    }}                    
+                    }}  
+                    refreshControl={<RefreshControl
+                                        refreshing={this.state.refreshing}
+                                        onRefresh={this.onRefresh}
+                                    ></RefreshControl>}                  
                 >
                 </FlatList>    
                 <AddModal ref={'addModal'} parentFlatList={this}></AddModal>
