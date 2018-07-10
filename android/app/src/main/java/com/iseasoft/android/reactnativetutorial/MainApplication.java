@@ -3,6 +3,8 @@ package com.iseasoft.android.reactnativetutorial;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import io.invertase.firebase.RNFirebasePackage;
 
 import com.iseasoft.android.reactnativetutorial.BuildConfig;
@@ -27,6 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FBSDKPackage(),
+            new FBSDKPackage(),
             new RNFirebasePackage(),
             new VectorIconsPackage()
       );
