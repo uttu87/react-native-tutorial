@@ -4061,6 +4061,10 @@ react-native-firebase@^4.2.0:
     postinstall-build "^5.0.1"
     prop-types "^15.6.1"
 
+react-native-google-signin@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/react-native-google-signin/-/react-native-google-signin-0.12.0.tgz#fc549593adbc92ed2a5a683a957f157650ece961"
+
 react-native-modalbox@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/react-native-modalbox/-/react-native-modalbox-1.5.0.tgz#dd363027093b6a770a3455ecc0579760179819eb"

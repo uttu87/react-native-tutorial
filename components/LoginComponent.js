@@ -9,6 +9,7 @@ import {View, Text,
 import firebase from 'react-native-firebase'
 import Button from 'react-native-button'
 import {AccessToken, LoginManager, LoginButton} from 'react-native-fbsdk'
+import {GoogleSignin} from 'react-native-google-signin'
 
 export default class LoginComponent extends Component {
     constructor(props) {
@@ -26,6 +27,13 @@ export default class LoginComponent extends Component {
         this.unsubscriber = firebase.auth().onAuthStateChanged(((changedUser) => {
             this.setState({user: changedUser})
         }))
+
+        GoogleSignin.configure({
+            iosClientId: '1082758095941-k6jg8143766nvm8le6p8j2kgdqfoultv.apps.googleusercontent.com', //only for iOS
+        })
+        .then(() => {
+            //you can now call currentUserAsync()
+        })
     }
 
     componentWillUnmount () {
@@ -91,6 +99,21 @@ export default class LoginComponent extends Component {
             .catch((error) => {
                 console.log(`Facebook login fail with error: ${error}`)
             })
+    }
+
+    onLoginGoogle = () => {
+        GoogleSignin.signIn()
+        .then((data) => {
+            const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
+            //
+            return firebase.auth().signInWithCredential(credential)
+        })
+        .then((currentUser) => {
+            console.log(`Google Login success with user: ${JSON.stringify(currentUser.toJSON())}`)
+        })
+        .catch((error) => {
+            console.log(`Google login fail with error: ${error}`)
+        })
     }
 
     render() {
@@ -189,7 +212,7 @@ export default class LoginComponent extends Component {
                 </View>
                 <Button containerStyle={{
                         padding: 10,
-                        width: 150,
+                        width: 200,
                         margin: 20,
                         borderRadius: 4,
                         backgroundColor: 'rgb(73, 104, 173)'
@@ -200,6 +223,19 @@ export default class LoginComponent extends Component {
                         }}
                         onPress={this.onLoginFacebook }
                         >Login Facebook</Button>
+                <Button containerStyle={{
+                        padding: 10,
+                        width: 200,
+                        margin: 20,
+                        borderRadius: 4,
+                        backgroundColor: 'rgb(204, 84, 65)'
+                }}
+                        style={{
+                            fontSize: 18,
+                            color: 'white'
+                        }}
+                        onPress={this.onLoginGoogle }
+                        >Login Google</Button>
             </View>
         )
     }
