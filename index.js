@@ -18,7 +18,8 @@ import { AppRegistry, StyleSheet, View, Text } from 'react-native';
 //import HorizontalFlatList from './components/HorizontalFlatList'
 //import BasicSectionList from './components/BasicSectionList'
 //import LifeCycleComponent from './components/LifeCycleComponent'
-import LoginComponent from './components/LoginComponent'
+//import LoginComponent from './components/LoginComponent'
+import ToDoComponent from './components/ToDoComponent'
 
 export default class App extends Component {
     render() {
@@ -51,4 +52,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
     }
 });
-AppRegistry.registerComponent('learningProject', () => LoginComponent);
+AppRegistry.registerComponent('learningProject', () => ToDoComponent);
