@@ -20,7 +20,8 @@ import { AppRegistry, StyleSheet, View, Text } from 'react-native';
 //import LifeCycleComponent from './components/LifeCycleComponent'
 //import LoginComponent from './components/LoginComponent'
 //import ToDoComponent from './components/ToDoComponent'
-import DatabaseComponent from './components/DatabaseComponent'
+//import DatabaseComponent from './components/DatabaseComponent'
+import ReduxExample from './components/ReduxExample'
 
 export default class App extends Component {
     render() {
@@ -53,4 +54,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
     }
 });
-AppRegistry.registerComponent('learningProject', () => DatabaseComponent);
+AppRegistry.registerComponent('learningProject', () => ReduxExample);
