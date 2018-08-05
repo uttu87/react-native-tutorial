@@ -24,6 +24,7 @@ export default class ToDoComponent extends Component {
             return
         }
         //Call click event => use Container
+        this.props.onClickAdd(this.state.newTaskName);
     }
 
     render() {
